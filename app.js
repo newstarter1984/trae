@@ -194,6 +194,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function showTimestamp() {
-    const deployTime = '2026-04-11 09:55:00';
+    const deployTime = '2026-04-11 10:05:00';
     document.getElementById('timestamp').textContent = `部署版本: ${deployTime}`;
 }
