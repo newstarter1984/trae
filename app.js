@@ -100,6 +100,11 @@ const pinyinMap = {
     'hei': { hanzi: '黑', pinyin: 'hēi', words: ['黑色', '黑夜'] }
 };
 
+const hanziMap = {};
+for (const key in pinyinMap) {
+    hanziMap[pinyinMap[key].hanzi] = pinyinMap[key];
+}
+
 function initWriter(hanzi) {
     try {
         if (writer) {
@@ -161,9 +166,17 @@ function clearDisplay() {
 
 document.getElementById('pinyinInput').addEventListener('input', function(e) {
     const input = e.target.value.toLowerCase().trim();
+    let data = null;
     
-    if (input && pinyinMap[input]) {
-        const data = pinyinMap[input];
+    if (input) {
+        if (pinyinMap[input]) {
+            data = pinyinMap[input];
+        } else if (hanziMap[input]) {
+            data = hanziMap[input];
+        }
+    }
+    
+    if (data) {
         initWriter(data.hanzi);
         updateDisplay(data);
     } else if (input === '') {
@@ -194,6 +207,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function showTimestamp() {
-    const deployTime = '2026-04-11 10:05:00';
+    const deployTime = '2026-04-11 10:25:00';
     document.getElementById('timestamp').textContent = `部署版本: ${deployTime}`;
 }
