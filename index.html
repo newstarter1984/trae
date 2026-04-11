@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>汉字学习</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="input-section">
+            <input 
+                type="text" 
+                id="pinyinInput" 
+                placeholder="输入拼音 (如: ni)" 
+                autocomplete="off"
+                autocapitalize="off"
+            >
+        </div>
+        
+        <div class="hanzi-section">
+            <div id="hanziCanvas" class="hanzi-canvas"></div>
+        </div>
+        
+        <div class="pinyin-section">
+            <div id="pinyinDisplay" class="pinyin-text"></div>
+        </div>
+        
+        <div class="words-section">
+            <div id="wordsDisplay" class="words-container"></div>
+        </div>
+        
+        <div class="controls">
+            <button id="animateBtn" class="btn">重新动画</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
