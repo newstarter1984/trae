@@ -182,6 +182,7 @@ document.getElementById('animateBtn').addEventListener('click', function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
+    showTimestamp();
     setTimeout(() => {
         const defaultData = pinyinMap['ni'];
         if (defaultData) {
@@ -191,3 +192,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 500);
 });
+
+function showTimestamp() {
+    const deployTime = '2026-04-11 09:55:00';
+    document.getElementById('timestamp').textContent = `部署版本: ${deployTime}`;
+}

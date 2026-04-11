@@ -88,6 +88,18 @@ body {
 .controls {
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
+}
+
+.timestamp-section {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.timestamp-text {
+    font-size: 14px;
+    color: #888;
+    font-family: monospace;
 }
 
 .btn {
