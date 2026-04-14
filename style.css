@@ -166,7 +166,7 @@ body {
 }
 
 .mob {
-    width: 48px;
+    width: 64px;
     height: 80px;
     position: relative;
     flex-shrink: 0;
@@ -175,32 +175,39 @@ body {
 
 .mob-pig {
     background: 
-        linear-gradient(#f79ac0, #f79ac0) 0 0 / 48px 48px no-repeat,
-        linear-gradient(#e87da0, #e87da0) 6px 48px / 8px 24px no-repeat,
-        linear-gradient(#e87da0, #e87da0) 16px 48px / 8px 24px no-repeat,
-        linear-gradient(#e87da0, #e87da0) 26px 48px / 8px 24px no-repeat,
-        linear-gradient(#e87da0, #e87da0) 36px 48px / 8px 24px no-repeat;
+        /* 猪的头 - 32x32 */
+        linear-gradient(#f79ac0, #f79ac0) 16px 0 / 32px 32px no-repeat,
+        /* 猪的身体 - 40x32 */
+        linear-gradient(#f79ac0, #f79ac0) 12px 32px / 40px 32px no-repeat,
+        /* 猪的腿 */
+        linear-gradient(#e87da0, #e87da0) 16px 64px / 8px 16px no-repeat,
+        linear-gradient(#e87da0, #e87da0) 28px 64px / 8px 16px no-repeat,
+        linear-gradient(#e87da0, #e87da0) 40px 64px / 8px 16px no-repeat,
+        linear-gradient(#e87da0, #e87da0) 52px 64px / 8px 16px no-repeat;
 }
 
 .mob-pig::before {
     content: '';
     position: absolute;
-    width: 6px;
-    height: 6px;
+    width: 4px;
+    height: 4px;
     background: #000;
-    top: 9px;
-    left: 9px;
-    box-shadow: 24px 0 0 #000;
+    top: 10px;
+    left: 24px;
+    box-shadow: 
+        12px 0 0 #000,
+        4px 8px 0 #e87da0, 8px 8px 0 #e87da0, 12px 8px 0 #e87da0, 16px 8px 0 #e87da0;
 }
 
 .mob-pig::after {
     content: '';
     position: absolute;
-    width: 12px;
-    height: 8px;
-    background: #f08080;
-    top: 24px;
-    left: 18px;
+    width: 8px;
+    height: 6px;
+    background: #e87da0;
+    top: 22px;
+    left: 28px;
+    border-radius: 3px;
 }
 
 .mob-sheep {
