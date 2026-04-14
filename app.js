@@ -1,5 +1,6 @@
 let writer = null;
 let currentThemeIndex = 0;
+let deferredPrompt = null;
 
 const themes = [
     { name: 'theme-day-grass', label: '🌿 草原白天' },
@@ -221,8 +222,32 @@ function clearDisplay() {
 }
 
 function showTimestamp() {
-    const deployTime = '2026-04-14 10:15:00';
+    const deployTime = '2026-04-14 10:30:00';
     document.getElementById('timestamp').textContent = `部署版本: ${deployTime}`;
+}
+
+function setupPWA() {
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        document.getElementById('installSection').classList.add('show');
+    });
+
+    document.getElementById('installBtn').addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                deferredPrompt = null;
+                document.getElementById('installSection').classList.remove('show');
+            }
+        }
+    });
+
+    window.addEventListener('appinstalled', () => {
+        deferredPrompt = null;
+        document.getElementById('installSection').classList.remove('show');
+    });
 }
 
 document.getElementById('pinyinInput').addEventListener('input', function(e) {
@@ -261,6 +286,7 @@ document.getElementById('nextThemeBtn').addEventListener('click', function() {
 
 document.addEventListener('DOMContentLoaded', function() {
     showTimestamp();
+    setupPWA();
     
     let savedTheme = localStorage.getItem('themeIndex');
     if (savedTheme !== null) {

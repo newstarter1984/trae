@@ -306,6 +306,21 @@ body {
     box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
 }
 
+.install-section {
+    text-align: center;
+    margin-bottom: 10px;
+    display: none;
+}
+
+.install-section.show {
+    display: block;
+}
+
+.install-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: #4c51bf;
+}
+
 .timestamp-section {
     text-align: center;
     margin-top: 10px;
