@@ -1,4 +1,18 @@
 let writer = null;
+let currentThemeIndex = 0;
+
+const themes = [
+    { name: 'theme-day-grass', label: '🌿 草原白天' },
+    { name: 'theme-day-sand', label: '🏜️ 沙漠白天' },
+    { name: 'theme-day-snow', label: '❄️ 雪地白天' },
+    { name: 'theme-sunset', label: '🌅 日落时分' },
+    { name: 'theme-night', label: '🌙 夜晚星空' },
+    { name: 'theme-night-moon', label: '🌕 月夜皎洁' },
+    { name: 'theme-nether', label: '🔥 地狱火山' },
+    { name: 'theme-end', label: '🌌 末地虚空' },
+    { name: 'theme-ocean', label: '🌊 深海世界' },
+    { name: 'theme-candy', label: '🍬 糖果乐园' }
+];
 
 const pinyinMap = {
     'ni': { hanzi: '你', pinyin: 'nǐ', words: ['你好', '你们'] },
@@ -53,7 +67,7 @@ const pinyinMap = {
     'hen': { hanzi: '恨', pinyin: 'hèn', words: ['仇恨', '悔恨'] },
     'kai': { hanzi: '开', pinyin: 'kāi', words: ['开心', '开门'] },
     'guan': { hanzi: '关', pinyin: 'guān', words: ['关门', '关闭'] },
-    'jin': { hanzi: '进', pinyin: 'jìn', words: ['进来', '进去'] },
+    'jin3': { hanzi: '进', pinyin: 'jìn', words: ['进来', '进去'] },
     'chu': { hanzi: '出', pinyin: 'chū', words: ['出去', '出来'] },
     'lai': { hanzi: '来', pinyin: 'lái', words: ['来到', '来回'] },
     'qu': { hanzi: '去', pinyin: 'qù', words: ['去向', '去来'] },
@@ -63,7 +77,7 @@ const pinyinMap = {
     'xie': { hanzi: '写', pinyin: 'xiě', words: ['写字', '写信'] },
     'du': { hanzi: '读', pinyin: 'dú', words: ['读书', '朗读'] },
     'suan': { hanzi: '算', pinyin: 'suàn', words: ['算术', '计算'] },
-    'hua': { hanzi: '画', pinyin: 'huà', words: ['画画', '图画'] },
+    'hua2': { hanzi: '画', pinyin: 'huà', words: ['画画', '图画'] },
     'chang': { hanzi: '唱', pinyin: 'chàng', words: ['唱歌', '演唱'] },
     'wan': { hanzi: '玩', pinyin: 'wán', words: ['玩耍', '玩具'] },
     'xue': { hanzi: '学', pinyin: 'xué', words: ['学习', '学生'] },
@@ -88,7 +102,7 @@ const pinyinMap = {
     'xing': { hanzi: '星', pinyin: 'xīng', words: ['星星', '明星'] },
     'yun': { hanzi: '云', pinyin: 'yún', words: ['云朵', '白云'] },
     'yu': { hanzi: '雨', pinyin: 'yǔ', words: ['下雨', '雨水'] },
-    'xue': { hanzi: '雪', pinyin: 'xuě', words: ['下雪', '雪花'] },
+    'xue2': { hanzi: '雪', pinyin: 'xuě', words: ['下雪', '雪花'] },
     'feng': { hanzi: '风', pinyin: 'fēng', words: ['大风', '风景'] },
     'lei': { hanzi: '雷', pinyin: 'léi', words: ['打雷', '雷雨'] },
     'dian': { hanzi: '电', pinyin: 'diàn', words: ['闪电', '电灯'] },
@@ -105,6 +119,48 @@ for (const key in pinyinMap) {
     hanziMap[pinyinMap[key].hanzi] = pinyinMap[key];
 }
 
+function setTheme(index) {
+    currentThemeIndex = index;
+    const html = document.documentElement;
+    const oldTheme = html.className;
+    html.classList.remove(oldTheme);
+    const newTheme = themes[currentThemeIndex];
+    html.classList.add(newTheme.name);
+    document.getElementById('themeIndicator').textContent = `当前主题: ${newTheme.label}`;
+    
+    localStorage.setItem('themeIndex', currentThemeIndex);
+}
+
+function nextTheme() {
+    const newIndex = (currentThemeIndex + 1) % themes.length;
+    setTheme(newIndex);
+}
+
+function getThemeBasedOnTime() {
+    const hour = new Date().getHours();
+    let themeIndex;
+    
+    if (hour >= 6 && hour < 10) {
+        themeIndex = 0;
+    } else if (hour >= 10 && hour < 14) {
+        themeIndex = 1;
+    } else if (hour >= 14 && hour < 17) {
+        themeIndex = 2;
+    } else if (hour >= 17 && hour < 19) {
+        themeIndex = 3;
+    } else if (hour >= 19 && hour < 22) {
+        themeIndex = 4;
+    } else if (hour >= 22 || hour < 2) {
+        themeIndex = 5;
+    } else if (hour >= 2 && hour < 4) {
+        themeIndex = 6;
+    } else {
+        themeIndex = 7;
+    }
+    
+    return themeIndex;
+}
+
 function initWriter(hanzi) {
     try {
         if (writer) {
@@ -114,8 +170,8 @@ function initWriter(hanzi) {
         document.getElementById('hanziCanvas').innerHTML = '';
         
         writer = HanziWriter.create('hanziCanvas', hanzi, {
-            width: 300,
-            height: 300,
+            width: 280,
+            height: 280,
             padding: 5,
             showOutline: true,
             strokeAnimationSpeed: 1,
@@ -137,9 +193,9 @@ function showStaticHanzi(hanzi) {
     const canvas = document.getElementById('hanziCanvas');
     canvas.innerHTML = '';
     const hanziEl = document.createElement('div');
-    hanziEl.style.fontSize = '200px';
+    hanziEl.style.fontSize = '180px';
     hanziEl.style.textAlign = 'center';
-    hanziEl.style.lineHeight = '300px';
+    hanziEl.style.lineHeight = '280px';
     hanziEl.textContent = hanzi;
     canvas.appendChild(hanziEl);
 }
@@ -162,6 +218,11 @@ function clearDisplay() {
     document.getElementById('pinyinDisplay').textContent = '';
     document.getElementById('wordsDisplay').innerHTML = '';
     writer = null;
+}
+
+function showTimestamp() {
+    const deployTime = '2026-04-14 10:00:00';
+    document.getElementById('timestamp').textContent = `部署版本: ${deployTime}`;
 }
 
 document.getElementById('pinyinInput').addEventListener('input', function(e) {
@@ -194,8 +255,28 @@ document.getElementById('animateBtn').addEventListener('click', function() {
     }
 });
 
+document.getElementById('nextThemeBtn').addEventListener('click', function() {
+    nextTheme();
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     showTimestamp();
+    
+    let savedTheme = localStorage.getItem('themeIndex');
+    if (savedTheme !== null) {
+        currentThemeIndex = parseInt(savedTheme);
+    } else {
+        currentThemeIndex = getThemeBasedOnTime();
+    }
+    setTheme(currentThemeIndex);
+    
+    setInterval(function() {
+        const timeBasedIndex = getThemeBasedOnTime();
+        if (timeBasedIndex !== currentThemeIndex) {
+            setTheme(timeBasedIndex);
+        }
+    }, 600000);
+    
     setTimeout(() => {
         const defaultData = pinyinMap['ni'];
         if (defaultData) {
@@ -205,8 +286,3 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 500);
 });
-
-function showTimestamp() {
-    const deployTime = '2026-04-11 10:30:00';
-    document.getElementById('timestamp').textContent = `部署版本: ${deployTime}`;
-}
