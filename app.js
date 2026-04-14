@@ -222,7 +222,7 @@ function clearDisplay() {
 }
 
 function showTimestamp() {
-    const deployTime = '2026-04-14 13:24:11';
+    const deployTime = '2026-04-14 13:27:14';
     document.getElementById('timestamp').textContent = `部署版本: ${deployTime}`;
 }
 
