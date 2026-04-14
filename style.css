@@ -141,7 +141,7 @@ body {
 }
 
 .mobs-section {
-    height: 70px;
+    height: 80px;
     overflow: hidden;
     position: relative;
     margin-bottom: 15px;
@@ -167,7 +167,7 @@ body {
 
 .mob {
     width: 48px;
-    height: 60px;
+    height: 70px;
     position: relative;
     flex-shrink: 0;
     image-rendering: pixelated;
@@ -175,6 +175,11 @@ body {
 
 .mob-pig {
     background-color: #f79ac0;
+    box-shadow: 
+        6px 48px 0 #e87da0,
+        18px 48px 0 #e87da0,
+        30px 48px 0 #e87da0,
+        42px 48px 0 #e87da0;
 }
 
 .mob-pig::before {
@@ -184,8 +189,8 @@ body {
     height: 6px;
     background: #000;
     top: 9px;
-    left: 12px;
-    box-shadow: 18px 0 0 #000;
+    left: 9px;
+    box-shadow: 24px 0 0 #000;
 }
 
 .mob-pig::after {
@@ -194,19 +199,24 @@ body {
     width: 12px;
     height: 8px;
     background: #f08080;
-    top: 21px;
+    top: 24px;
     left: 18px;
 }
 
 .mob-sheep {
     background-color: #e8e8e8;
+    box-shadow: 
+        6px 48px 0 #e6d0a8,
+        18px 48px 0 #e6d0a8,
+        30px 48px 0 #e6d0a8,
+        42px 48px 0 #e6d0a8;
 }
 
 .mob-sheep::before {
     content: '';
     position: absolute;
     width: 48px;
-    height: 24px;
+    height: 18px;
     background: #e6d0a8;
     top: 0;
     left: 0;
@@ -225,13 +235,18 @@ body {
 
 .mob-cow {
     background-color: #4a4a4a;
+    box-shadow: 
+        6px 48px 0 #3a3a3a,
+        18px 48px 0 #3a3a3a,
+        30px 48px 0 #3a3a3a,
+        42px 48px 0 #3a3a3a;
 }
 
 .mob-cow::before {
     content: '';
     position: absolute;
     width: 24px;
-    height: 24px;
+    height: 18px;
     background: #f5deb3;
     top: 0;
     left: 12px;
@@ -250,13 +265,16 @@ body {
 
 .mob-chicken {
     background-color: #fff5f5;
+    box-shadow: 
+        18px 46px 0 #ffcc00,
+        30px 46px 0 #ffcc00;
 }
 
 .mob-chicken::before {
     content: '';
     position: absolute;
     width: 24px;
-    height: 24px;
+    height: 18px;
     background: #fff5f5;
     top: 0;
     left: 12px;
@@ -274,6 +292,11 @@ body {
 
 .mob-creeper {
     background-color: #00aa00;
+    box-shadow: 
+        6px 52px 0 #008800,
+        18px 52px 0 #008800,
+        30px 52px 0 #008800,
+        42px 52px 0 #008800;
 }
 
 .mob-creeper::before {
@@ -283,8 +306,8 @@ body {
     height: 12px;
     background: #000;
     top: 6px;
-    left: 10px;
-    box-shadow: 20px 0 0 #000;
+    left: 8px;
+    box-shadow: 24px 0 0 #000;
 }
 
 .mob-creeper::after {
@@ -293,13 +316,18 @@ body {
     width: 24px;
     height: 12px;
     background: #000;
-    top: 24px;
+    top: 28px;
     left: 12px;
     clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
 }
 
 .mob-skeleton {
     background-color: #e8e8e8;
+    box-shadow: 
+        6px 48px 0 #d0d0d0,
+        18px 48px 0 #d0d0d0,
+        30px 48px 0 #d0d0d0,
+        42px 48px 0 #d0d0d0;
 }
 
 .mob-skeleton::before {
@@ -324,11 +352,12 @@ body {
 }
 
 .mob-zombie {
-    width: 48px;
-    height: 48px;
     background-color: #5c9e3a;
-    background-image: 
-        linear-gradient(0deg, transparent 18px, #4a8e30 18px, #4a8e30 30px, transparent 30px);
+    box-shadow: 
+        6px 48px 0 #4a8e30,
+        18px 48px 0 #4a8e30,
+        30px 48px 0 #4a8e30,
+        42px 48px 0 #4a8e30;
 }
 
 .mob-zombie::before {
@@ -353,9 +382,12 @@ body {
 }
 
 .mob-steve {
-    width: 48px;
-    height: 48px;
     background-color: #0000aa;
+    box-shadow: 
+        6px 48px 0 #000088,
+        18px 48px 0 #000088,
+        30px 48px 0 #000088,
+        42px 48px 0 #000088;
 }
 
 .mob-steve::before {
@@ -380,9 +412,12 @@ body {
 }
 
 .mob-villager {
-    width: 48px;
-    height: 48px;
     background-color: #8b4513;
+    box-shadow: 
+        6px 48px 0 #6b3510,
+        18px 48px 0 #6b3510,
+        30px 48px 0 #6b3510,
+        42px 48px 0 #6b3510;
 }
 
 .mob-villager::before {
@@ -406,9 +441,12 @@ body {
 }
 
 .mob-enderman {
-    width: 48px;
-    height: 48px;
     background-color: #1a0a2e;
+    box-shadow: 
+        6px 54px 0 #0f0518,
+        18px 54px 0 #0f0518,
+        30px 54px 0 #0f0518,
+        42px 54px 0 #0f0518;
 }
 
 .mob-enderman::before {
@@ -434,11 +472,12 @@ body {
 }
 
 .mob-blaze {
-    width: 48px;
-    height: 48px;
     background-color: #ff6600;
-    background-image: 
-        linear-gradient(0deg, transparent 12px, #ff4400 12px, #ff4400 24px, transparent 24px, transparent 36px, #ff4400 36px, #ff4400 48px);
+    box-shadow: 
+        6px 48px 0 #ff4400,
+        18px 48px 0 #ff4400,
+        30px 48px 0 #ff4400,
+        42px 48px 0 #ff4400;
 }
 
 .mob-blaze::before {
@@ -464,9 +503,12 @@ body {
 }
 
 .mob-witch {
-    width: 48px;
-    height: 48px;
     background-color: #8b008b;
+    box-shadow: 
+        6px 48px 0 #6b006b,
+        18px 48px 0 #6b006b,
+        30px 48px 0 #6b006b,
+        42px 48px 0 #6b006b;
 }
 
 .mob-witch::before {
@@ -492,11 +534,12 @@ body {
 }
 
 .mob-cat {
-    width: 48px;
-    height: 48px;
     background-color: #ffa500;
-    background-image: 
-        linear-gradient(90deg, transparent 6px, #e69500 6px, #e69500 12px, transparent 12px, transparent 36px, #e69500 36px, #e69500 42px, transparent 42px);
+    box-shadow: 
+        6px 48px 0 #e69500,
+        18px 48px 0 #e69500,
+        30px 48px 0 #e69500,
+        42px 48px 0 #e69500;
 }
 
 .mob-cat::before {
@@ -524,11 +567,12 @@ body {
 }
 
 .mob-wolf {
-    width: 48px;
-    height: 48px;
     background-color: #808080;
-    background-image: 
-        linear-gradient(0deg, transparent 18px, #707070 18px, #707070 30px, transparent 30px);
+    box-shadow: 
+        6px 48px 0 #707070,
+        18px 48px 0 #707070,
+        30px 48px 0 #707070,
+        42px 48px 0 #707070;
 }
 
 .mob-wolf::before {
@@ -553,11 +597,12 @@ body {
 }
 
 .mob-parrot {
-    width: 48px;
-    height: 48px;
     background-color: #ff0000;
-    background-image: 
-        linear-gradient(90deg, transparent 12px, #00ff00 12px, #00ff00 24px, transparent 24px, transparent 36px, #0000ff 36px, #0000ff 48px);
+    box-shadow: 
+        6px 48px 0 #cc0000,
+        18px 48px 0 #cc0000,
+        30px 48px 0 #cc0000,
+        42px 48px 0 #cc0000;
 }
 
 .mob-parrot::before {
@@ -583,11 +628,12 @@ body {
 }
 
 .mob-fox {
-    width: 48px;
-    height: 48px;
     background-color: #ff6600;
-    background-image: 
-        linear-gradient(0deg, transparent 18px, #e65c00 18px, #e65c00 30px, transparent 30px);
+    box-shadow: 
+        6px 48px 0 #e65c00,
+        18px 48px 0 #e65c00,
+        30px 48px 0 #e65c00,
+        42px 48px 0 #e65c00;
 }
 
 .mob-fox::before {
@@ -612,12 +658,12 @@ body {
 }
 
 .mob-panda {
-    width: 48px;
-    height: 48px;
     background-color: #ffffff;
-    background-image: 
-        linear-gradient(90deg, transparent 6px, #000 6px, #000 18px, transparent 18px, transparent 30px, #000 30px, #000 42px, transparent 42px),
-        linear-gradient(0deg, transparent 6px, #000 6px, #000 18px, transparent 18px, transparent 30px, #000 30px, #000 42px, transparent 42px);
+    box-shadow: 
+        6px 48px 0 #000,
+        18px 48px 0 #000,
+        30px 48px 0 #000,
+        42px 48px 0 #000;
 }
 
 .mob-panda::before {
@@ -643,11 +689,12 @@ body {
 }
 
 .mob-axolotl {
-    width: 48px;
-    height: 48px;
     background-color: #ffb6c1;
-    background-image: 
-        linear-gradient(90deg, transparent 12px, #ff99b3 12px, #ff99b3 36px, transparent 36px);
+    box-shadow: 
+        6px 48px 0 #ff99b3,
+        18px 48px 0 #ff99b3,
+        30px 48px 0 #ff99b3,
+        42px 48px 0 #ff99b3;
 }
 
 .mob-axolotl::before {
@@ -674,11 +721,12 @@ body {
 }
 
 .mob-goat {
-    width: 48px;
-    height: 48px;
     background-color: #d2b48c;
-    background-image: 
-        linear-gradient(0deg, transparent 18px, #c2a47c 18px, #c2a47c 30px, transparent 30px);
+    box-shadow: 
+        6px 48px 0 #c2a47c,
+        18px 48px 0 #c2a47c,
+        30px 48px 0 #c2a47c,
+        42px 48px 0 #c2a47c;
 }
 
 .mob-goat::before {
@@ -704,11 +752,12 @@ body {
 }
 
 .mob-frog {
-    width: 48px;
-    height: 48px;
     background-color: #00aa00;
-    background-image: 
-        linear-gradient(90deg, transparent 6px, #008800 6px, #008800 12px, transparent 12px, transparent 36px, #008800 36px, #008800 42px, transparent 42px);
+    box-shadow: 
+        6px 48px 0 #008800,
+        18px 48px 0 #008800,
+        30px 48px 0 #008800,
+        42px 48px 0 #008800;
 }
 
 .mob-frog::before {
