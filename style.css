@@ -174,46 +174,11 @@ body {
 }
 
 .mob-pig {
-    background: 
-        /* 猪的头 - 36x36 */
-        linear-gradient(#f79ac0, #f79ac0) 14px 0 / 36px 36px no-repeat,
-        /* 猪的身体 - 44x32 */
-        linear-gradient(#f79ac0, #f79ac0) 10px 36px / 44px 32px no-repeat,
-        /* 猪的前腿 */
-        linear-gradient(#e87da0, #e87da0) 16px 68px / 10px 14px no-repeat,
-        linear-gradient(#e87da0, #e87da0) 38px 68px / 10px 14px no-repeat,
-        /* 猪的后腿 */
-        linear-gradient(#e87da0, #e87da0) 24px 68px / 10px 14px no-repeat,
-        linear-gradient(#e87da0, #e87da0) 46px 68px / 10px 14px no-repeat;
+    background: url('images/20260414-164024.jpg') center / contain no-repeat;
 }
 
-.mob-pig::before {
-    content: '';
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: #000;
-    top: 12px;
-    left: 22px;
-    box-shadow: 
-        16px 0 0 #000,
-        /* 猪的鼻子 */
-        6px 12px 0 #e87da0, 10px 12px 0 #e87da0, 14px 12px 0 #e87da0, 18px 12px 0 #e87da0,
-        6px 16px 0 #e87da0, 10px 16px 0 #e87da0, 14px 16px 0 #e87da0, 18px 16px 0 #e87da0,
-        /* 猪的鼻孔 */
-        8px 14px 0 #d86d90, 16px 14px 0 #d86d90;
-}
-
-.mob-pig::after {
-    content: '';
-    position: absolute;
-    width: 8px;
-    height: 6px;
-    background: #f79ac0;
-    top: 0;
-    left: 18px;
-    box-shadow: 
-        24px 0 0 #f79ac0;
+.mob-pig::before, .mob-pig::after {
+    content: none;
 }
 
 .mob-sheep {
@@ -317,34 +282,11 @@ body {
 }
 
 .mob-creeper {
-    background: 
-        linear-gradient(#00aa00, #00aa00) 0 0 / 48px 48px no-repeat,
-        linear-gradient(#008800, #008800) 6px 48px / 8px 24px no-repeat,
-        linear-gradient(#008800, #008800) 16px 48px / 8px 24px no-repeat,
-        linear-gradient(#008800, #008800) 26px 48px / 8px 24px no-repeat,
-        linear-gradient(#008800, #008800) 36px 48px / 8px 24px no-repeat;
+    background: url('images/20260414-164029.jpg') center / contain no-repeat;
 }
 
-.mob-creeper::before {
-    content: '';
-    position: absolute;
-    width: 8px;
-    height: 12px;
-    background: #000;
-    top: 6px;
-    left: 8px;
-    box-shadow: 24px 0 0 #000;
-}
-
-.mob-creeper::after {
-    content: '';
-    position: absolute;
-    width: 24px;
-    height: 12px;
-    background: #000;
-    top: 28px;
-    left: 12px;
-    clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+.mob-creeper::before, .mob-creeper::after {
+    content: none;
 }
 
 .mob-skeleton {
@@ -378,63 +320,19 @@ body {
 }
 
 .mob-zombie {
-    background: 
-        linear-gradient(#5c9e3a, #5c9e3a) 0 0 / 48px 48px no-repeat,
-        linear-gradient(#4a8e30, #4a8e30) 6px 48px / 8px 24px no-repeat,
-        linear-gradient(#4a8e30, #4a8e30) 16px 48px / 8px 24px no-repeat,
-        linear-gradient(#4a8e30, #4a8e30) 26px 48px / 8px 24px no-repeat,
-        linear-gradient(#4a8e30, #4a8e30) 36px 48px / 8px 24px no-repeat;
+    background: url('images/20260414-164041.jpg') center / contain no-repeat;
 }
 
-.mob-zombie::before {
-    content: '';
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    background: #000;
-    top: 6px;
-    left: 9px;
-    box-shadow: 18px 0 0 #000;
-}
-
-.mob-zombie::after {
-    content: '';
-    position: absolute;
-    width: 18px;
-    height: 8px;
-    background: #800000;
-    top: 24px;
-    left: 15px;
+.mob-zombie::before, .mob-zombie::after {
+    content: none;
 }
 
 .mob-steve {
-    background: 
-        linear-gradient(#0000aa, #0000aa) 0 0 / 48px 48px no-repeat,
-        linear-gradient(#000088, #000088) 6px 48px / 8px 24px no-repeat,
-        linear-gradient(#000088, #000088) 16px 48px / 8px 24px no-repeat,
-        linear-gradient(#000088, #000088) 26px 48px / 8px 24px no-repeat,
-        linear-gradient(#000088, #000088) 36px 48px / 8px 24px no-repeat;
+    background: url('images/20260414-164034.jpg') center / contain no-repeat;
 }
 
-.mob-steve::before {
-    content: '';
-    position: absolute;
-    width: 36px;
-    height: 24px;
-    background: #e6ae8a;
-    top: 0;
-    left: 6px;
-}
-
-.mob-steve::after {
-    content: '';
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: #000;
-    top: 9px;
-    left: 12px;
-    box-shadow: 18px 0 0 #000;
+.mob-steve::before, .mob-steve::after {
+    content: none;
 }
 
 .mob-villager {
@@ -467,34 +365,11 @@ body {
 }
 
 .mob-enderman {
-    background: 
-        linear-gradient(#1a0a2e, #1a0a2e) 0 0 / 48px 48px no-repeat,
-        linear-gradient(#0f0518, #0f0518) 6px 48px / 8px 24px no-repeat,
-        linear-gradient(#0f0518, #0f0518) 16px 48px / 8px 24px no-repeat,
-        linear-gradient(#0f0518, #0f0518) 26px 48px / 8px 24px no-repeat,
-        linear-gradient(#0f0518, #0f0518) 36px 48px / 8px 24px no-repeat;
+    background: url('images/20260414-164037.jpg') center / contain no-repeat;
 }
 
-.mob-enderman::before {
-    content: '';
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    background: #ff00ff;
-    top: 6px;
-    left: 9px;
-    box-shadow: 18px 0 0 #ff00ff;
-}
-
-.mob-enderman::after {
-    content: '';
-    position: absolute;
-    width: 6px;
-    height: 24px;
-    background: #0f0518;
-    top: 24px;
-    left: 6px;
-    box-shadow: 30px 0 0 #0f0518;
+.mob-enderman::before, .mob-enderman::after {
+    content: none;
 }
 
 .mob-blaze {
