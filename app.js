@@ -4,6 +4,10 @@ let deferredPrompt = null;
 let charData = {};
 let pinyinMap = {};
 let hanziMap = {};
+let animationInterval = null;
+let currentCharData = null;
+let favorites = [];
+let isFavoritesView = false;
 
 const themes = [
     { name: 'theme-day-grass', label: '🌿 草原白天' },
@@ -164,6 +168,11 @@ function getThemeBasedOnTime() {
 
 function initWriter(hanzi) {
     try {
+        if (animationInterval) {
+            clearInterval(animationInterval);
+            animationInterval = null;
+        }
+        
         if (writer) {
             writer = null;
         }
@@ -182,6 +191,11 @@ function initWriter(hanzi) {
             outlineColor: '#ddd',
             onLoadCharacter: function() {
                 writer.animateCharacter();
+                animationInterval = setInterval(function() {
+                    if (writer) {
+                        writer.animateCharacter();
+                    }
+                }, 3000);
             }
         });
     } catch (error) {
@@ -202,6 +216,7 @@ function showStaticHanzi(hanzi) {
 }
 
 function updateDisplay(data) {
+    currentCharData = data;
     document.getElementById('pinyinDisplay').textContent = data.pinyin;
     
     const wordsContainer = document.getElementById('wordsDisplay');
@@ -212,17 +227,24 @@ function updateDisplay(data) {
         wordEl.textContent = word;
         wordsContainer.appendChild(wordEl);
     });
+    
+    updateFavoriteButton();
 }
 
 function clearDisplay() {
+    if (animationInterval) {
+        clearInterval(animationInterval);
+        animationInterval = null;
+    }
     document.getElementById('hanziCanvas').innerHTML = '';
     document.getElementById('pinyinDisplay').textContent = '';
     document.getElementById('wordsDisplay').innerHTML = '';
     writer = null;
+    currentCharData = null;
 }
 
 function showTimestamp() {
-    const deployTime = '2026-04-14 13:41:39';
+    const deployTime = '2026-04-14 17:00:00';
     document.getElementById('timestamp').textContent = `部署版本: ${deployTime}`;
 }
 
@@ -288,6 +310,141 @@ async function loadCharData() {
     setupCharData();
 }
 
+function loadFavorites() {
+    const saved = localStorage.getItem('hanziFavorites');
+    if (saved) {
+        favorites = JSON.parse(saved);
+    }
+}
+
+function saveFavorites() {
+    localStorage.setItem('hanziFavorites', JSON.stringify(favorites));
+}
+
+function isFavorite(hanzi) {
+    return favorites.some(f => f.hanzi === hanzi);
+}
+
+function toggleFavorite() {
+    if (!currentCharData) return;
+    
+    const hanzi = currentCharData.hanzi;
+    
+    if (isFavorite(hanzi)) {
+        favorites = favorites.filter(f => f.hanzi !== hanzi);
+    } else {
+        favorites.unshift({
+            hanzi: hanzi,
+            pinyin: currentCharData.pinyin,
+            words: currentCharData.words,
+            timestamp: Date.now()
+        });
+    }
+    
+    saveFavorites();
+    updateFavoriteButton();
+}
+
+function updateFavoriteButton() {
+    const btn = document.getElementById('favoriteBtn');
+    if (btn && currentCharData) {
+        if (isFavorite(currentCharData.hanzi)) {
+            btn.textContent = '⭐ 已收藏';
+            btn.classList.add('favorited');
+        } else {
+            btn.textContent = '⭐ 收藏';
+            btn.classList.remove('favorited');
+        }
+    }
+}
+
+function showFavoritesView() {
+    isFavoritesView = true;
+    document.getElementById('mainView').style.display = 'none';
+    document.getElementById('favoritesView').style.display = 'block';
+    renderFavorites();
+}
+
+function showMainView() {
+    isFavoritesView = false;
+    document.getElementById('favoritesView').style.display = 'none';
+    document.getElementById('mainView').style.display = 'block';
+}
+
+function renderFavorites() {
+    const container = document.getElementById('favoritesList');
+    container.innerHTML = '';
+    
+    if (favorites.length === 0) {
+        container.innerHTML = '<div class="empty-favorites">还没有收藏的文字哦~</div>';
+        return;
+    }
+    
+    const grouped = {};
+    favorites.forEach(item => {
+        const date = new Date(item.timestamp);
+        const dateKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+        const dateLabel = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+        
+        if (!grouped[dateKey]) {
+            grouped[dateKey] = { label: dateLabel, items: [] };
+        }
+        grouped[dateKey].items.push(item);
+    });
+    
+    const sortedDates = Object.keys(grouped).sort();
+    
+    sortedDates.forEach(dateKey => {
+        const group = grouped[dateKey];
+        
+        const dateHeader = document.createElement('div');
+        dateHeader.className = 'date-header';
+        dateHeader.textContent = `${group.label} 收藏的文字`;
+        container.appendChild(dateHeader);
+        
+        const itemsContainer = document.createElement('div');
+        itemsContainer.className = 'favorites-items';
+        
+        group.items.forEach(item => {
+            const itemEl = document.createElement('div');
+            itemEl.className = 'favorite-item';
+            
+            const hanziEl = document.createElement('div');
+            hanziEl.className = 'favorite-hanzi';
+            hanziEl.textContent = item.hanzi;
+            hanziEl.addEventListener('click', () => {
+                showMainView();
+                if (hanziMap[item.hanzi]) {
+                    initWriter(item.hanzi);
+                    updateDisplay(hanziMap[item.hanzi]);
+                    document.getElementById('pinyinInput').value = item.hanzi;
+                }
+            });
+            itemEl.appendChild(hanziEl);
+            
+            const pinyinEl = document.createElement('div');
+            pinyinEl.className = 'favorite-pinyin';
+            pinyinEl.textContent = item.pinyin;
+            itemEl.appendChild(pinyinEl);
+            
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-favorite-btn';
+            deleteBtn.textContent = '×';
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                favorites = favorites.filter(f => f.hanzi !== item.hanzi);
+                saveFavorites();
+                renderFavorites();
+            });
+            itemEl.appendChild(deleteBtn);
+            
+            itemsContainer.appendChild(itemEl);
+        });
+        
+        container.appendChild(itemsContainer);
+    });
+}
+
 document.getElementById('pinyinInput').addEventListener('input', function(e) {
     const input = e.target.value.toLowerCase().trim();
     let data = null;
@@ -322,10 +479,23 @@ document.getElementById('nextThemeBtn').addEventListener('click', function() {
     nextTheme();
 });
 
+document.getElementById('favoriteBtn').addEventListener('click', function() {
+    toggleFavorite();
+});
+
+document.getElementById('favoritesBtn').addEventListener('click', function() {
+    showFavoritesView();
+});
+
+document.getElementById('backBtn').addEventListener('click', function() {
+    showMainView();
+});
+
 document.addEventListener('DOMContentLoaded', async function() {
     showTimestamp();
     setupPWA();
     await loadCharData();
+    loadFavorites();
     
     let savedTheme = localStorage.getItem('themeIndex');
     if (savedTheme !== null) {
