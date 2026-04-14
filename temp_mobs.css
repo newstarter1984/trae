@@ -1,0 +1,162 @@
+.mob-pig {
+    background: none;
+    position: relative;
+}
+
+.mob-pig::before {
+    content: '';
+    position: absolute;
+    width: 36px;
+    height: 30px;
+    background: #f79ac0;
+    top: 0;
+    left: 10px;
+}
+
+.mob-pig::after {
+    content: '';
+    position: absolute;
+    width: 44px;
+    height: 36px;
+    background: #f79ac0;
+    top: 28px;
+    left: 6px;
+}
+
+.mob-pig {
+    box-shadow: 
+        12px 66px 0 #e87da0,
+        24px 66px 0 #e87da0,
+        36px 66px 0 #e87da0,
+        48px 66px 0 #e87da0;
+}
+
+.mob-sheep {
+    background: none;
+    position: relative;
+}
+
+.mob-sheep::before {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 24px;
+    background: #e6d0a8;
+    top: 0;
+    left: 13px;
+}
+
+.mob-sheep::after {
+    content: '';
+    position: absolute;
+    width: 48px;
+    height: 42px;
+    background: #e8e8e8;
+    top: 22px;
+    left: 4px;
+}
+
+.mob-sheep {
+    box-shadow: 
+        12px 66px 0 #e6d0a8,
+        24px 66px 0 #e6d0a8,
+        36px 66px 0 #e6d0a8,
+        48px 66px 0 #e6d0a8;
+}
+
+.mob-cow {
+    background: none;
+    position: relative;
+}
+
+.mob-cow::before {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 24px;
+    background: #f5deb3;
+    top: 0;
+    left: 13px;
+}
+
+.mob-cow::after {
+    content: '';
+    position: absolute;
+    width: 48px;
+    height: 42px;
+    background: #4a4a4a;
+    top: 22px;
+    left: 4px;
+}
+
+.mob-cow {
+    box-shadow: 
+        12px 66px 0 #3a3a3a,
+        24px 66px 0 #3a3a3a,
+        36px 66px 0 #3a3a3a,
+        48px 66px 0 #3a3a3a;
+}
+
+.mob-chicken {
+    background: none;
+    position: relative;
+}
+
+.mob-chicken::before {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 28px;
+    background: #fff5f5;
+    top: 0;
+    left: 16px;
+}
+
+.mob-chicken::after {
+    content: '';
+    position: absolute;
+    width: 36px;
+    height: 32px;
+    background: #fff5f5;
+    top: 26px;
+    left: 10px;
+}
+
+.mob-chicken {
+    box-shadow: 
+        22px 60px 0 #ffcc00,
+        34px 60px 0 #ffcc00;
+}
+
+.mob-creeper {
+    background: none;
+    position: relative;
+}
+
+.mob-creeper::before {
+    content: '';
+    position: absolute;
+    width: 36px;
+    height: 30px;
+    background: #00aa00;
+    top: 0;
+    left: 10px;
+}
+
+.mob-creeper::after {
+    content: '';
+    position: absolute;
+    width: 36px;
+    height: 42px;
+    background: #00aa00;
+    top: 28px;
+    left: 10px;
+}
+
+.mob-creeper {
+    box-shadow: 
+        14px 72px 0 #008800,
+        28px 72px 0 #008800,
+        38px 72px 0 #008800,
+        52px 72px 0 #008800;
+}
