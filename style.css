@@ -166,51 +166,68 @@ body {
 }
 
 .mob {
-    width: 64px;
-    height: 80px;
+    width: 48px;
+    height: 48px;
     position: relative;
     flex-shrink: 0;
     image-rendering: pixelated;
 }
 
 .mob-pig {
-    background: url('images/20260414-164024.jpg') center / contain no-repeat;
+    width: 48px;
+    height: 48px;
+    background-color: #f79ac0;
+    background-image: 
+        linear-gradient(90deg, transparent 12px, #f5a9b8 12px, #f5a9b8 36px, transparent 36px),
+        linear-gradient(0deg, transparent 12px, #e87da0 12px, #e87da0 36px, transparent 36px);
+    box-shadow: 
+        inset 6px 0 0 #f5a9b8,
+        inset -6px 0 0 #f5a9b8;
 }
 
-.mob-pig::before, .mob-pig::after {
-    content: none;
+.mob-pig::before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #000;
+    top: 12px;
+    left: 12px;
+    box-shadow: 18px 0 0 #000;
+}
+
+.mob-pig::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 8px;
+    background: #e87da0;
+    top: 24px;
+    left: 18px;
+    border-radius: 4px;
 }
 
 .mob-sheep {
-    background: 
-        /* 羊的头 - 36x36 */
-        linear-gradient(#e8e8e8, #e8e8e8) 14px 0 / 36px 36px no-repeat,
-        /* 羊的身体 - 44x32 */
-        linear-gradient(#f5f5f5, #f5f5f5) 10px 36px / 44px 32px no-repeat,
-        /* 羊的腿 */
-        linear-gradient(#e6d0a8, #e6d0a8) 16px 68px / 10px 14px no-repeat,
-        linear-gradient(#e6d0a8, #e6d0a8) 24px 68px / 10px 14px no-repeat,
-        linear-gradient(#e6d0a8, #e6d0a8) 38px 68px / 10px 14px no-repeat,
-        linear-gradient(#e6d0a8, #e6d0a8) 46px 68px / 10px 14px no-repeat;
+    width: 48px;
+    height: 48px;
+    background-color: #e8e8e8;
+    background-image: 
+        linear-gradient(90deg, transparent 12px, #ffffff 12px, #ffffff 36px, transparent 36px),
+        linear-gradient(0deg, transparent 12px, #dcdcdc 12px, #dcdcdc 36px, transparent 36px);
+    box-shadow: 
+        inset 6px 0 0 #ffffff,
+        inset -6px 0 0 #ffffff;
 }
 
 .mob-sheep::before {
     content: '';
     position: absolute;
-    width: 8px;
-    height: 8px;
-    background: #e6d0a8;
-    top: 0;
-    left: 18px;
-    box-shadow: 
-        24px 0 0 #e6d0a8,
-        /* 羊的脸 */
-        8px 8px 0 #e6d0a8, 12px 8px 0 #e6d0a8, 16px 8px 0 #e6d0a8, 20px 8px 0 #e6d0a8, 24px 8px 0 #e6d0a8, 28px 8px 0 #e6d0a8,
-        8px 12px 0 #e6d0a8, 12px 12px 0 #e6d0a8, 16px 12px 0 #e6d0a8, 20px 12px 0 #e6d0a8, 24px 12px 0 #e6d0a8, 28px 12px 0 #e6d0a8,
-        8px 16px 0 #e6d0a8, 12px 16px 0 #e6d0a8, 16px 16px 0 #e6d0a8, 20px 16px 0 #e6d0a8, 24px 16px 0 #e6d0a8, 28px 16px 0 #e6d0a8,
-        8px 20px 0 #e6d0a8, 12px 20px 0 #e6d0a8, 16px 20px 0 #e6d0a8, 20px 20px 0 #e6d0a8, 24px 20px 0 #e6d0a8, 28px 20px 0 #e6d0a8,
-        /* 羊的眼睛 */
-        14px 12px 0 #000, 26px 12px 0 #000;
+    width: 6px;
+    height: 6px;
+    background: #000;
+    top: 12px;
+    left: 12px;
+    box-shadow: 18px 0 0 #000;
 }
 
 .mob-sheep::after {
@@ -218,10 +235,9 @@ body {
     position: absolute;
     width: 4px;
     height: 4px;
-    background: #000;
-    top: 18px;
-    left: 24px;
-    box-shadow: 8px 0 0 #000;
+    background: #8b4513;
+    top: 24px;
+    left: 22px;
 }
 
 .mob-cow {
@@ -282,11 +298,36 @@ body {
 }
 
 .mob-creeper {
-    background: url('images/20260414-164029.jpg') center / contain no-repeat;
+    width: 48px;
+    height: 48px;
+    background-color: #00aa00;
+    background-image: 
+        linear-gradient(90deg, transparent 12px, #00cc00 12px, #00cc00 36px, transparent 36px),
+        linear-gradient(0deg, transparent 12px, #008800 12px, #008800 36px, transparent 36px);
+    box-shadow: 
+        inset 6px 0 0 #00cc00,
+        inset -6px 0 0 #00cc00;
 }
 
-.mob-creeper::before, .mob-creeper::after {
-    content: none;
+.mob-creeper::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #000;
+    top: 12px;
+    left: 10px;
+    box-shadow: 18px 0 0 #000;
+}
+
+.mob-creeper::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 4px;
+    background: #000;
+    top: 28px;
+    left: 16px;
 }
 
 .mob-skeleton {
@@ -320,19 +361,71 @@ body {
 }
 
 .mob-zombie {
-    background: url('images/20260414-164041.jpg') center / contain no-repeat;
+    width: 48px;
+    height: 48px;
+    background-color: #5c9e3a;
+    background-image: 
+        linear-gradient(90deg, transparent 12px, #6cb04a 12px, #6cb04a 36px, transparent 36px),
+        linear-gradient(0deg, transparent 12px, #4a8e30 12px, #4a8e30 36px, transparent 36px);
+    box-shadow: 
+        inset 6px 0 0 #6cb04a,
+        inset -6px 0 0 #6cb04a;
 }
 
-.mob-zombie::before, .mob-zombie::after {
-    content: none;
+.mob-zombie::before {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 16px;
+    background: #8b4513;
+    top: 8px;
+    left: 12px;
+    border-radius: 4px;
+}
+
+.mob-zombie::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #000;
+    top: 12px;
+    left: 15px;
+    box-shadow: 12px 0 0 #000;
 }
 
 .mob-steve {
-    background: url('images/20260414-164034.jpg') center / contain no-repeat;
+    width: 48px;
+    height: 48px;
+    background-color: #0000aa;
+    background-image: 
+        linear-gradient(90deg, transparent 12px, #0000cc 12px, #0000cc 36px, transparent 36px),
+        linear-gradient(0deg, transparent 12px, #000088 12px, #000088 36px, transparent 36px);
+    box-shadow: 
+        inset 6px 0 0 #0000cc,
+        inset -6px 0 0 #0000cc;
 }
 
-.mob-steve::before, .mob-steve::after {
-    content: none;
+.mob-steve::before {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 16px;
+    background: #e6ae8a;
+    top: 8px;
+    left: 12px;
+    border-radius: 4px;
+}
+
+.mob-steve::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #000;
+    top: 12px;
+    left: 15px;
+    box-shadow: 12px 0 0 #000;
 }
 
 .mob-villager {
@@ -365,11 +458,36 @@ body {
 }
 
 .mob-enderman {
-    background: url('images/20260414-164037.jpg') center / contain no-repeat;
+    width: 48px;
+    height: 48px;
+    background-color: #1a0a2e;
+    background-image: 
+        linear-gradient(90deg, transparent 12px, #2a1a3e 12px, #2a1a3e 36px, transparent 36px),
+        linear-gradient(0deg, transparent 12px, #0f0518 12px, #0f0518 36px, transparent 36px);
+    box-shadow: 
+        inset 6px 0 0 #2a1a3e,
+        inset -6px 0 0 #2a1a3e;
 }
 
-.mob-enderman::before, .mob-enderman::after {
-    content: none;
+.mob-enderman::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #ff00ff;
+    top: 12px;
+    left: 10px;
+    box-shadow: 18px 0 0 #ff00ff;
+}
+
+.mob-enderman::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #ffffff;
+    top: 24px;
+    left: 22px;
 }
 
 .mob-blaze {
