@@ -1,6 +1,9 @@
 let writer = null;
 let currentThemeIndex = 0;
 let deferredPrompt = null;
+let charData = {};
+let pinyinMap = {};
+let hanziMap = {};
 
 const themes = [
     { name: 'theme-day-grass', label: '🌿 草原白天' },
@@ -15,11 +18,13 @@ const themes = [
     { name: 'theme-candy', label: '🍬 糖果乐园' }
 ];
 
-const pinyinMap = {
+const basePinyinMap = {
     'ni': { hanzi: '你', pinyin: 'nǐ', words: ['你好', '你们'] },
     'wo': { hanzi: '我', pinyin: 'wǒ', words: ['我们', '我的'] },
     'hao': { hanzi: '好', pinyin: 'hǎo', words: ['好人', '好处'] },
     'ta': { hanzi: '他', pinyin: 'tā', words: ['他们', '他人'] },
+    'ta2': { hanzi: '她', pinyin: 'tā', words: ['她们', '她的'] },
+    'ta3': { hanzi: '它', pinyin: 'tā', words: ['它们', '它的'] },
     'ren': { hanzi: '人', pinyin: 'rén', words: ['人民', '人生'] },
     'da': { hanzi: '大', pinyin: 'dà', words: ['大小', '大家'] },
     'xiao': { hanzi: '小', pinyin: 'xiǎo', words: ['小孩', '小心'] },
@@ -35,7 +40,7 @@ const pinyinMap = {
     'mu': { hanzi: '木', pinyin: 'mù', words: ['木头', '树木'] },
     'jin': { hanzi: '金', pinyin: 'jīn', words: ['金色', '金子'] },
     'tu': { hanzi: '土', pinyin: 'tǔ', words: ['土地', '泥土'] },
-    'men': { hanzi: '门', pinyin: 'mén', words: ['门口', '大门'] },
+    'men': { hanzi: '们', pinyin: 'men', words: ['人们', '我们'] },
     'chuang': { hanzi: '窗', pinyin: 'chuāng', words: ['窗户', '窗口'] },
     'che': { hanzi: '车', pinyin: 'chē', words: ['汽车', '火车'] },
     'ma': { hanzi: '马', pinyin: 'mǎ', words: ['马车', '马上'] },
@@ -114,11 +119,6 @@ const pinyinMap = {
     'bai': { hanzi: '白', pinyin: 'bái', words: ['白色', '白天'] },
     'hei': { hanzi: '黑', pinyin: 'hēi', words: ['黑色', '黑夜'] }
 };
-
-const hanziMap = {};
-for (const key in pinyinMap) {
-    hanziMap[pinyinMap[key].hanzi] = pinyinMap[key];
-}
 
 function setTheme(index) {
     currentThemeIndex = index;
@@ -222,7 +222,7 @@ function clearDisplay() {
 }
 
 function showTimestamp() {
-    const deployTime = '2026-04-14 10:30:00';
+    const deployTime = '2026-04-14 10:45:00';
     document.getElementById('timestamp').textContent = `部署版本: ${deployTime}`;
 }
 
@@ -248,6 +248,44 @@ function setupPWA() {
         deferredPrompt = null;
         document.getElementById('installSection').classList.remove('show');
     });
+}
+
+function setupCharData() {
+    pinyinMap = { ...basePinyinMap };
+    hanziMap = {};
+    
+    for (const key in pinyinMap) {
+        hanziMap[pinyinMap[key].hanzi] = pinyinMap[key];
+    }
+    
+    if (charData && charData.chars) {
+        for (const hanzi in charData.chars) {
+            if (!hanziMap[hanzi]) {
+                const data = charData.chars[hanzi];
+                const pinyinKey = data.pinyin.replace(/[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ]/g, '');
+                let uniqueKey = pinyinKey;
+                let counter = 1;
+                while (pinyinMap[uniqueKey]) {
+                    uniqueKey = pinyinKey + counter;
+                    counter++;
+                }
+                pinyinMap[uniqueKey] = { hanzi, pinyin: data.pinyin, words: data.words };
+                hanziMap[hanzi] = { hanzi, pinyin: data.pinyin, words: data.words };
+            }
+        }
+    }
+}
+
+async function loadCharData() {
+    try {
+        const response = await fetch('char-data.json');
+        if (response.ok) {
+            charData = await response.json();
+        }
+    } catch (error) {
+        console.log('Using base character data');
+    }
+    setupCharData();
 }
 
 document.getElementById('pinyinInput').addEventListener('input', function(e) {
@@ -284,9 +322,10 @@ document.getElementById('nextThemeBtn').addEventListener('click', function() {
     nextTheme();
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     showTimestamp();
     setupPWA();
+    await loadCharData();
     
     let savedTheme = localStorage.getItem('themeIndex');
     if (savedTheme !== null) {
