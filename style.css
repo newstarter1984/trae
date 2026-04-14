@@ -141,7 +141,7 @@ body {
 }
 
 .mobs-section {
-    height: 60px;
+    height: 70px;
     overflow: hidden;
     position: relative;
     margin-bottom: 15px;
@@ -167,22 +167,14 @@ body {
 
 .mob {
     width: 48px;
-    height: 48px;
+    height: 60px;
     position: relative;
     flex-shrink: 0;
     image-rendering: pixelated;
 }
 
 .mob-pig {
-    width: 48px;
-    height: 48px;
     background-color: #f79ac0;
-    background-image: 
-        linear-gradient(90deg, transparent 12px, #f5a9b8 12px, #f5a9b8 36px, transparent 36px),
-        linear-gradient(0deg, transparent 12px, #e87da0 12px, #e87da0 36px, transparent 36px);
-    box-shadow: 
-        inset 6px 0 0 #f5a9b8,
-        inset -6px 0 0 #f5a9b8;
 }
 
 .mob-pig::before {
@@ -191,7 +183,7 @@ body {
     width: 6px;
     height: 6px;
     background: #000;
-    top: 12px;
+    top: 9px;
     left: 12px;
     box-shadow: 18px 0 0 #000;
 }
@@ -202,24 +194,19 @@ body {
     width: 12px;
     height: 8px;
     background: #f08080;
-    top: 24px;
+    top: 21px;
     left: 18px;
-    border-radius: 4px;
 }
 
 .mob-sheep {
-    width: 48px;
-    height: 48px;
     background-color: #e8e8e8;
-    background-image: 
-        linear-gradient(90deg, transparent 6px, #ffffff 6px, #ffffff 12px, transparent 12px, transparent 36px, #ffffff 36px, #ffffff 42px, transparent 42px);
 }
 
 .mob-sheep::before {
     content: '';
     position: absolute;
     width: 48px;
-    height: 18px;
+    height: 24px;
     background: #e6d0a8;
     top: 0;
     left: 0;
@@ -237,19 +224,14 @@ body {
 }
 
 .mob-cow {
-    width: 48px;
-    height: 48px;
     background-color: #4a4a4a;
-    background-image: 
-        linear-gradient(90deg, transparent 12px, #ffffff 12px, #ffffff 18px, transparent 18px, transparent 30px, #ffffff 30px, #ffffff 36px, transparent 36px),
-        linear-gradient(0deg, transparent 12px, #ffffff 12px, #ffffff 18px, transparent 18px, transparent 30px, #ffffff 30px, #ffffff 36px, transparent 36px);
 }
 
 .mob-cow::before {
     content: '';
     position: absolute;
     width: 24px;
-    height: 18px;
+    height: 24px;
     background: #f5deb3;
     top: 0;
     left: 12px;
@@ -267,8 +249,6 @@ body {
 }
 
 .mob-chicken {
-    width: 48px;
-    height: 48px;
     background-color: #fff5f5;
 }
 
@@ -276,8 +256,8 @@ body {
     content: '';
     position: absolute;
     width: 24px;
-    height: 18px;
-    background: #ffcc00;
+    height: 24px;
+    background: #fff5f5;
     top: 0;
     left: 12px;
 }
@@ -290,15 +270,10 @@ body {
     background: #ff0000;
     top: 8px;
     left: 6px;
-    border-radius: 4px 0 0 4px;
 }
 
 .mob-creeper {
-    width: 48px;
-    height: 48px;
     background-color: #00aa00;
-    background-image: 
-        linear-gradient(0deg, transparent 24px, #008800 24px, #008800 36px, transparent 36px);
 }
 
 .mob-creeper::before {
@@ -324,11 +299,7 @@ body {
 }
 
 .mob-skeleton {
-    width: 48px;
-    height: 48px;
     background-color: #e8e8e8;
-    background-image: 
-        linear-gradient(90deg, transparent 6px, #d0d0d0 6px, #d0d0d0 12px, transparent 12px, transparent 36px, #d0d0d0 36px, #d0d0d0 42px, transparent 42px);
 }
 
 .mob-skeleton::before {
@@ -813,7 +784,6 @@ body {
     font-size: 28px;
     color: var(--text-color);
     font-weight: bold;
-    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
 }
 
 .words-section {
