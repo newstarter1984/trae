@@ -323,7 +323,7 @@ function clearDisplay() {
 }
 
 function showTimestamp() {
-    const deployTime = '2026-06-11 21:30:00';
+    const deployTime = '2026-06-11 22:00:00';
     document.getElementById('timestamp').textContent = `部署版本: ${deployTime}`;
 }
 
