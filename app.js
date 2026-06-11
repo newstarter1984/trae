@@ -588,37 +588,8 @@ function updateUserInfo() {
 }
 
 document.addEventListener('DOMContentLoaded', async function() {
-    setupLoginForm();
-    
-    const isLoginPage = window.location.pathname.endsWith('login.html');
-    
-    if (isLoginPage) {
-        const loginData = checkLoginStatus();
-        if (loginData) {
-            redirectToMain();
-            return;
-        }
-        
-        let savedTheme = localStorage.getItem('themeIndex');
-        if (savedTheme !== null) {
-            currentThemeIndex = parseInt(savedTheme);
-        } else {
-            currentThemeIndex = getThemeBasedOnTime();
-        }
-        setTheme(currentThemeIndex);
-        return;
-    }
-    
-    const loginData = checkLoginStatus();
-    if (!loginData) {
-        redirectToLogin();
-        return;
-    }
-    
     showTimestamp();
     setupPWA();
-    setupLogoutButton();
-    updateUserInfo();
     await loadCharData();
     loadFavorites();
     
