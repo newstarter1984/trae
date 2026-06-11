@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="theme-day-grass">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#667eea">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>登录 - 元宝学习小世界</title>
+    <link rel="stylesheet" href="style.css?v=30">
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <div class="header">
+                <h1 class="title">🎮 元宝学习小世界</h1>
+                <div class="theme-indicator">用户登录</div>
+            </div>
+            
+            <div class="mobs-section">
+                <div class="mobs-track">
+                    <div class="mob mob-pig"></div>
+                    <div class="mob mob-sheep"></div>
+                    <div class="mob mob-cow"></div>
+                    <div class="mob mob-chicken"></div>
+                    <div class="mob mob-creeper"></div>
+                    <div class="mob mob-skeleton"></div>
+                    <div class="mob mob-zombie"></div>
+                    <div class="mob mob-steve"></div>
+                    <div class="mob mob-villager"></div>
+                    <div class="mob mob-enderman"></div>
+                    <div class="mob mob-blaze"></div>
+                    <div class="mob mob-witch"></div>
+                    <div class="mob mob-cat"></div>
+                    <div class="mob mob-wolf"></div>
+                    <div class="mob mob-parrot"></div>
+                    <div class="mob mob-fox"></div>
+                    <div class="mob mob-panda"></div>
+                    <div class="mob mob-axolotl"></div>
+                    <div class="mob mob-goat"></div>
+                    <div class="mob mob-frog"></div>
+                </div>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        placeholder="请输入用户名" 
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        placeholder="请输入密码" 
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+                
+                <div id="loginError" class="error-message"></div>
+                
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="rememberMe">
+                        <span>记住我</span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn login-btn">🔐 登录</button>
+            </form>
+            
+            <div class="login-tip">
+                <p>💡 测试账号：admin / 123456</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js?v=20"></script>
+</body>
+</html>
