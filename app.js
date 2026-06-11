@@ -9,6 +9,85 @@ let currentCharData = null;
 let favorites = [];
 let isFavoritesView = false;
 
+const VALID_USERS = {
+    'admin': '123456',
+    'user': 'password',
+    'test': 'test123'
+};
+
+function checkLoginStatus() {
+    const loginData = localStorage.getItem('userLogin');
+    if (loginData) {
+        const parsed = JSON.parse(loginData);
+        const now = Date.now();
+        if (parsed.expiresAt && now > parsed.expiresAt) {
+            logout();
+            return false;
+        }
+        return parsed;
+    }
+    return false;
+}
+
+function saveLoginStatus(username, rememberMe) {
+    const loginData = {
+        username: username,
+        loginAt: Date.now(),
+        expiresAt: rememberMe ? Date.now() + 7 * 24 * 60 * 60 * 1000 : Date.now() + 24 * 60 * 60 * 1000
+    };
+    localStorage.setItem('userLogin', JSON.stringify(loginData));
+}
+
+function validateLogin(username, password) {
+    return VALID_USERS[username] && VALID_USERS[username] === password;
+}
+
+function logout() {
+    localStorage.removeItem('userLogin');
+    window.location.href = 'login.html';
+}
+
+function redirectToLogin() {
+    if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname.endsWith('/')) {
+        window.location.href = 'login.html';
+    }
+}
+
+function redirectToMain() {
+    if (window.location.pathname.endsWith('login.html')) {
+        window.location.href = 'index.html';
+    }
+}
+
+function setupLoginForm() {
+    const loginForm = document.getElementById('loginForm');
+    if (!loginForm) return;
+
+    loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+        const rememberMe = document.getElementById('rememberMe').checked;
+        const errorEl = document.getElementById('loginError');
+
+        if (!username || !password) {
+            errorEl.textContent = '请输入用户名和密码';
+            return;
+        }
+
+        if (validateLogin(username, password)) {
+            saveLoginStatus(username, rememberMe);
+            errorEl.textContent = '';
+            setTimeout(() => {
+                redirectToMain();
+            }, 500);
+        } else {
+            errorEl.textContent = '用户名或密码错误';
+        }
+    });
+}
+
 const themes = [
     { name: 'theme-day-grass', label: '🌿 草原白天' },
     { name: 'theme-day-sand', label: '🏜️ 沙漠白天' },
@@ -244,7 +323,7 @@ function clearDisplay() {
 }
 
 function showTimestamp() {
-    const deployTime = '2026-04-14 17:00:00';
+    const deployTime = '2026-06-11 15:00:00';
     document.getElementById('timestamp').textContent = `部署版本: ${deployTime}`;
 }
 
@@ -491,9 +570,55 @@ document.getElementById('backBtn').addEventListener('click', function() {
     showMainView();
 });
 
+function setupLogoutButton() {
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            logout();
+        });
+    }
+}
+
+function updateUserInfo() {
+    const loginData = checkLoginStatus();
+    const userInfoEl = document.getElementById('userInfo');
+    if (userInfoEl && loginData) {
+        userInfoEl.textContent = `👤 ${loginData.username}`;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', async function() {
+    setupLoginForm();
+    
+    const isLoginPage = window.location.pathname.endsWith('login.html');
+    
+    if (isLoginPage) {
+        const loginData = checkLoginStatus();
+        if (loginData) {
+            redirectToMain();
+            return;
+        }
+        
+        let savedTheme = localStorage.getItem('themeIndex');
+        if (savedTheme !== null) {
+            currentThemeIndex = parseInt(savedTheme);
+        } else {
+            currentThemeIndex = getThemeBasedOnTime();
+        }
+        setTheme(currentThemeIndex);
+        return;
+    }
+    
+    const loginData = checkLoginStatus();
+    if (!loginData) {
+        redirectToLogin();
+        return;
+    }
+    
     showTimestamp();
     setupPWA();
+    setupLogoutButton();
+    updateUserInfo();
     await loadCharData();
     loadFavorites();
     
