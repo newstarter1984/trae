@@ -12,7 +12,7 @@
     <meta name="apple-mobile-web-app-title" content="元宝学习小世界">
     <title>元宝学习小世界</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="style.css?v=30">
+    <link rel="stylesheet" href="style.css?v=31">
 </head>
 <body>
     <div class="container">
@@ -78,7 +78,14 @@
             </div>
             
             <div class="hanzi-section">
-                <div id="hanziCanvas" class="hanzi-canvas"></div>
+                <div class="writing-board">
+                    <div class="mi-grid" id="miGrid">
+                        <div class="mi-grid-diagonal-tl-br"></div>
+                        <div class="mi-grid-diagonal-tr-bl"></div>
+                        <div id="hanziCanvas" class="hanzi-canvas"></div>
+                        <canvas id="writeCanvas" class="write-canvas"></canvas>
+                    </div>
+                </div>
             </div>
             
             <div class="pinyin-section">
@@ -89,9 +96,36 @@
                 <div id="wordsDisplay" class="words-container"></div>
             </div>
             
-            <div class="controls">
+            <div class="controls writing-controls">
                 <button id="animateBtn" class="btn">🔄 重新动画</button>
                 <button id="nextThemeBtn" class="btn">🎨 下一主题</button>
+            </div>
+            
+            <div class="controls writing-tools">
+                <button id="clearBtn" class="btn tool-btn">🧹 清除</button>
+                <button id="undoBtn" class="btn tool-btn">↩️ 撤销</button>
+                <button id="redoBtn" class="btn tool-btn">↪️ 重做</button>
+            </div>
+            
+            <div class="controls color-controls">
+                <span class="tool-label">选择颜色:</span>
+                <button class="color-btn color-black active" data-color="#000000"></button>
+                <button class="color-btn color-red" data-color="#e74c3c"></button>
+                <button class="color-btn color-blue" data-color="#3498db"></button>
+                <button class="color-btn color-green" data-color="#27ae60"></button>
+                <button class="color-btn color-purple" data-color="#9b59b6"></button>
+                <button class="color-btn color-orange" data-color="#f39c12"></button>
+            </div>
+            
+            <div class="controls size-controls">
+                <span class="tool-label">笔触粗细:</span>
+                <button class="size-btn size-thin active" data-size="3"></button>
+                <button class="size-btn size-medium" data-size="6"></button>
+                <button class="size-btn size-thick" data-size="10"></button>
+            </div>
+            
+            <div class="controls export-controls">
+                <button id="saveBtn" class="btn tool-btn">💾 保存图片</button>
             </div>
             
             <div class="controls">
@@ -127,6 +161,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
-    <script src="app.js?v=20"></script></function></seed:tool_call></function></seed:tool_call>
+    <script src="app.js?v=31"></script></function></seed:tool_call></function></seed:tool_call>
 </body>
 </html>

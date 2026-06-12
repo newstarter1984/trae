@@ -9,6 +9,15 @@ let currentCharData = null;
 let favorites = [];
 let isFavoritesView = false;
 
+let writeCanvas = null;
+let writeCtx = null;
+let isDrawing = false;
+let currentColor = '#000000';
+let currentSize = 3;
+let strokes = [];
+let currentStroke = null;
+let undoneStrokes = [];
+
 const VALID_USERS = {
     'admin': '123456',
     'user': 'password',
@@ -258,6 +267,10 @@ function initWriter(hanzi) {
         
         document.getElementById('hanziCanvas').innerHTML = '';
         
+        if (writeCtx) {
+            clearWriting();
+        }
+        
         writer = HanziWriter.create('hanziCanvas', hanzi, {
             width: 280,
             height: 280,
@@ -322,8 +335,299 @@ function clearDisplay() {
     currentCharData = null;
 }
 
+function initWritingBoard() {
+    writeCanvas = document.getElementById('writeCanvas');
+    if (!writeCanvas) return;
+    
+    writeCanvas.width = 280;
+    writeCanvas.height = 280;
+    writeCtx = writeCanvas.getContext('2d');
+    writeCtx.lineCap = 'round';
+    writeCtx.lineJoin = 'round';
+    
+    strokes = [];
+    currentStroke = null;
+    undoneStrokes = [];
+    
+    writeCanvas.addEventListener('mousedown', startDrawing);
+    writeCanvas.addEventListener('mousemove', draw);
+    writeCanvas.addEventListener('mouseup', stopDrawing);
+    writeCanvas.addEventListener('mouseleave', stopDrawing);
+    
+    writeCanvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+    writeCanvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+    writeCanvas.addEventListener('touchend', stopDrawing);
+    writeCanvas.addEventListener('touchcancel', stopDrawing);
+}
+
+function startDrawing(e) {
+    isDrawing = true;
+    const rect = writeCanvas.getBoundingClientRect();
+    const scaleX = writeCanvas.width / rect.width;
+    const scaleY = writeCanvas.height / rect.height;
+    const x = (e.clientX - rect.left) * scaleX;
+    const y = (e.clientY - rect.top) * scaleY;
+    
+    currentStroke = {
+        color: currentColor,
+        size: currentSize,
+        points: [{ x: x, y: y }]
+    };
+    
+    writeCtx.beginPath();
+    writeCtx.moveTo(x, y);
+    writeCtx.strokeStyle = currentColor;
+    writeCtx.lineWidth = currentSize;
+    undoneStrokes = [];
+    updateUndoRedoButtons();
+}
+
+function draw(e) {
+    if (!isDrawing) return;
+    
+    const rect = writeCanvas.getBoundingClientRect();
+    const scaleX = writeCanvas.width / rect.width;
+    const scaleY = writeCanvas.height / rect.height;
+    const x = (e.clientX - rect.left) * scaleX;
+    const y = (e.clientY - rect.top) * scaleY;
+    
+    writeCtx.lineTo(x, y);
+    writeCtx.stroke();
+    currentStroke.points.push({ x: x, y: y });
+}
+
+function stopDrawing() {
+    if (isDrawing && currentStroke && currentStroke.points.length > 1) {
+        strokes.push(currentStroke);
+        updateUndoRedoButtons();
+    }
+    isDrawing = false;
+    currentStroke = null;
+}
+
+function handleTouchStart(e) {
+    e.preventDefault();
+    if (e.touches.length === 1) {
+        const touch = e.touches[0];
+        const mouseEvent = new MouseEvent('mousedown', {
+            clientX: touch.clientX,
+            clientY: touch.clientY
+        });
+        startDrawing(mouseEvent);
+    }
+}
+
+function handleTouchMove(e) {
+    e.preventDefault();
+    if (e.touches.length === 1) {
+        const touch = e.touches[0];
+        const mouseEvent = new MouseEvent('mousemove', {
+            clientX: touch.clientX,
+            clientY: touch.clientY
+        });
+        draw(mouseEvent);
+    }
+}
+
+function clearWriting() {
+    if (!writeCtx) return;
+    writeCtx.clearRect(0, 0, writeCanvas.width, writeCanvas.height);
+    strokes = [];
+    undoneStrokes = [];
+    updateUndoRedoButtons();
+}
+
+function undoStroke() {
+    if (strokes.length === 0) return;
+    
+    const lastStroke = strokes.pop();
+    undoneStrokes.push(lastStroke);
+    redrawCanvas();
+    updateUndoRedoButtons();
+}
+
+function redoStroke() {
+    if (undoneStrokes.length === 0) return;
+    
+    const stroke = undoneStrokes.pop();
+    strokes.push(stroke);
+    redrawCanvas();
+    updateUndoRedoButtons();
+}
+
+function redrawCanvas() {
+    if (!writeCtx) return;
+    
+    writeCtx.clearRect(0, 0, writeCanvas.width, writeCanvas.height);
+    
+    strokes.forEach(stroke => {
+        if (stroke.points.length < 2) return;
+        
+        writeCtx.beginPath();
+        writeCtx.strokeStyle = stroke.color;
+        writeCtx.lineWidth = stroke.size;
+        writeCtx.moveTo(stroke.points[0].x, stroke.points[0].y);
+        
+        for (let i = 1; i < stroke.points.length; i++) {
+            writeCtx.lineTo(stroke.points[i].x, stroke.points[i].y);
+        }
+        writeCtx.stroke();
+    });
+}
+
+function updateUndoRedoButtons() {
+    const undoBtn = document.getElementById('undoBtn');
+    const redoBtn = document.getElementById('redoBtn');
+    
+    if (undoBtn) {
+        undoBtn.disabled = strokes.length === 0;
+    }
+    if (redoBtn) {
+        redoBtn.disabled = undoneStrokes.length === 0;
+    }
+}
+
+function setWritingColor(color) {
+    currentColor = color;
+    
+    document.querySelectorAll('.color-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.color === color) {
+            btn.classList.add('active');
+        }
+    });
+}
+
+function setWritingSize(size) {
+    currentSize = parseInt(size);
+    
+    document.querySelectorAll('.size-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (parseInt(btn.dataset.size) === currentSize) {
+            btn.classList.add('active');
+        }
+    });
+}
+
+function saveWritingImage() {
+    if (!writeCanvas) return;
+    
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = 280;
+    tempCanvas.height = 280;
+    const tempCtx = tempCanvas.getContext('2d');
+    
+    tempCtx.fillStyle = '#ffffff';
+    tempCtx.fillRect(0, 0, 280, 280);
+    
+    tempCtx.strokeStyle = '#e74c3c';
+    tempCtx.lineWidth = 3;
+    tempCtx.strokeRect(0, 0, 280, 280);
+    
+    tempCtx.strokeStyle = '#e74c3c';
+    tempCtx.lineWidth = 1;
+    tempCtx.setLineDash([5, 5]);
+    
+    tempCtx.beginPath();
+    tempCtx.moveTo(140, 0);
+    tempCtx.lineTo(140, 280);
+    tempCtx.stroke();
+    
+    tempCtx.beginPath();
+    tempCtx.moveTo(0, 140);
+    tempCtx.lineTo(280, 140);
+    tempCtx.stroke();
+    
+    tempCtx.beginPath();
+    tempCtx.moveTo(0, 0);
+    tempCtx.lineTo(280, 280);
+    tempCtx.stroke();
+    
+    tempCtx.beginPath();
+    tempCtx.moveTo(280, 0);
+    tempCtx.lineTo(0, 280);
+    tempCtx.stroke();
+    
+    tempCtx.setLineDash([]);
+    
+    const hanziEl = document.querySelector('#hanziCanvas svg');
+    if (hanziEl) {
+        const svgData = new XMLSerializer().serializeToString(hanziEl);
+        const img = new Image();
+        const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+        const url = URL.createObjectURL(svgBlob);
+        
+        img.onload = function() {
+            tempCtx.drawImage(img, 0, 0, 280, 280);
+            tempCtx.drawImage(writeCanvas, 0, 0);
+            
+            URL.revokeObjectURL(url);
+            
+            const link = document.createElement('a');
+            const charText = currentCharData ? currentCharData.hanzi : '汉字';
+            link.download = `${charText}-书写练习.png`;
+            link.href = tempCanvas.toDataURL('image/png');
+            link.click();
+        };
+        
+        img.onerror = function() {
+            tempCtx.drawImage(writeCanvas, 0, 0);
+            
+            const link = document.createElement('a');
+            const charText = currentCharData ? currentCharData.hanzi : '汉字';
+            link.download = `${charText}-书写练习.png`;
+            link.href = tempCanvas.toDataURL('image/png');
+            link.click();
+        };
+        
+        img.src = url;
+    } else {
+        tempCtx.drawImage(writeCanvas, 0, 0);
+        
+        const link = document.createElement('a');
+        const charText = currentCharData ? currentCharData.hanzi : '汉字';
+        link.download = `${charText}-书写练习.png`;
+        link.href = tempCanvas.toDataURL('image/png');
+        link.click();
+    }
+}
+
+function setupWritingBoardEvents() {
+    document.querySelectorAll('.color-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            setWritingColor(this.dataset.color);
+        });
+    });
+    
+    document.querySelectorAll('.size-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            setWritingSize(this.dataset.size);
+        });
+    });
+    
+    const clearBtn = document.getElementById('clearBtn');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', clearWriting);
+    }
+    
+    const undoBtn = document.getElementById('undoBtn');
+    if (undoBtn) {
+        undoBtn.addEventListener('click', undoStroke);
+    }
+    
+    const redoBtn = document.getElementById('redoBtn');
+    if (redoBtn) {
+        redoBtn.addEventListener('click', redoStroke);
+    }
+    
+    const saveBtn = document.getElementById('saveBtn');
+    if (saveBtn) {
+        saveBtn.addEventListener('click', saveWritingImage);
+    }
+}
+
 function showTimestamp() {
-    const deployTime = '2026-06-12 14:40:00';
+    const deployTime = '2026-06-12 15:30:00';
     document.getElementById('timestamp').textContent = `部署版本: ${deployTime}`;
 }
 
@@ -592,6 +896,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     setupPWA();
     await loadCharData();
     loadFavorites();
+    initWritingBoard();
+    setupWritingBoardEvents();
     
     let savedTheme = localStorage.getItem('themeIndex');
     if (savedTheme !== null) {

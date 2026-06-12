@@ -830,17 +830,235 @@ body {
     margin-bottom: 15px;
 }
 
-.hanzi-canvas {
+.writing-board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.mi-grid {
     width: 280px;
     height: 280px;
-    margin: 0 auto;
+    position: relative;
     background: rgba(255, 255, 255, 0.95);
-    border: 4px solid var(--border-color);
-    border-radius: 8px;
+    border: 3px solid #e74c3c;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.mi-grid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 100%;
+    border-left: 1px dashed #e74c3c;
+    transform: translateX(-50%);
+    opacity: 0.8;
+}
+
+.mi-grid::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    border-top: 1px dashed #e74c3c;
+    transform: translateY(-50%);
+    opacity: 0.8;
+}
+
+.mi-grid-diagonal-tl-br {
+    position: absolute;
+    width: 141.4%;
+    height: 1px;
+    top: 50%;
+    left: 50%;
+    transform-origin: left center;
+    transform: rotate(45deg) translateY(-50%);
+    border-top: 1px dashed #e74c3c;
+    opacity: 0.8;
+}
+
+.mi-grid-diagonal-tr-bl {
+    position: absolute;
+    width: 141.4%;
+    height: 1px;
+    top: 50%;
+    left: 50%;
+    transform-origin: left center;
+    transform: rotate(-45deg) translateY(-50%);
+    border-top: 1px dashed #e74c3c;
+    opacity: 0.8;
+}
+
+.hanzi-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    z-index: 2;
+}
+
+.write-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+    z-index: 3;
+    touch-action: none;
+}
+
+.writing-controls {
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.writing-tools {
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.color-controls {
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+}
+
+.size-controls {
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+}
+
+.export-controls {
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tool-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    margin-right: 4px;
+}
+
+.tool-btn {
+    font-size: 13px;
+    padding: 8px 12px;
+}
+
+.color-btn {
+    width: 32px;
+    height: 32px;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.color-btn:hover {
+    transform: scale(1.1);
+}
+
+.color-btn.active {
+    border-color: #333;
+    transform: scale(1.15);
+}
+
+.color-black {
+    background-color: #000000;
+}
+
+.color-red {
+    background-color: #e74c3c;
+}
+
+.color-blue {
+    background-color: #3498db;
+}
+
+.color-green {
+    background-color: #27ae60;
+}
+
+.color-purple {
+    background-color: #9b59b6;
+}
+
+.color-orange {
+    background-color: #f39c12;
+}
+
+.size-btn {
+    width: 36px;
+    height: 36px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 0;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.size-btn::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background-color: #333;
+    border-radius: 50%;
+}
+
+.size-btn.size-thin::after {
+    width: 4px;
+    height: 4px;
+}
+
+.size-btn.size-medium::after {
+    width: 8px;
+    height: 8px;
+}
+
+.size-btn.size-thick::after {
+    width: 14px;
+    height: 14px;
+}
+
+.size-btn:hover {
+    transform: scale(1.05);
+    border-color: #999;
+}
+
+.size-btn.active {
+    border-color: #333;
+    transform: scale(1.1);
+}
+
+#undoBtn:disabled,
+#redoBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .pinyin-section {
