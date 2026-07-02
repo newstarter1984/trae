@@ -12,7 +12,7 @@
     <meta name="apple-mobile-web-app-title" content="元宝学习小世界">
     <title>元宝学习小世界</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="style.css?v=31">
+    <link rel="stylesheet" href="style.css?v=32">
 </head>
 <body>
     <div class="container">
@@ -80,8 +80,12 @@
             <div class="hanzi-section">
                 <div class="writing-board">
                     <div class="mi-grid" id="miGrid">
-                        <div class="mi-grid-diagonal-tl-br"></div>
-                        <div class="mi-grid-diagonal-tr-bl"></div>
+                        <svg class="mi-grid-lines" width="280" height="280" viewBox="0 0 280 280" preserveAspectRatio="none">
+                            <line x1="0" y1="0" x2="280" y2="280" stroke="#e74c3c" stroke-width="1" stroke-dasharray="6 5" opacity="0.6"/>
+                            <line x1="280" y1="0" x2="0" y2="280" stroke="#e74c3c" stroke-width="1" stroke-dasharray="6 5" opacity="0.6"/>
+                            <line x1="140" y1="0" x2="140" y2="280" stroke="#e74c3c" stroke-width="1.2" stroke-dasharray="7 5" opacity="0.85"/>
+                            <line x1="0" y1="140" x2="280" y2="140" stroke="#e74c3c" stroke-width="1.2" stroke-dasharray="7 5" opacity="0.85"/>
+                        </svg>
                         <div id="hanziCanvas" class="hanzi-canvas"></div>
                         <canvas id="writeCanvas" class="write-canvas"></canvas>
                     </div>
@@ -161,6 +165,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
-    <script src="app.js?v=31"></script></function></seed:tool_call></function></seed:tool_call>
+    <script src="app.js?v=32"></script>
 </body>
 </html>

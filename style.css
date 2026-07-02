@@ -841,59 +841,21 @@ body {
     width: 280px;
     height: 280px;
     position: relative;
-    background: rgba(255, 255, 255, 0.95);
+    background: #fffdf8;
     border: 3px solid #e74c3c;
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.mi-grid::before {
-    content: '';
+.mi-grid-lines {
     position: absolute;
     top: 0;
-    left: 50%;
-    width: 1px;
-    height: 100%;
-    border-left: 1px dashed #e74c3c;
-    transform: translateX(-50%);
-    opacity: 0.8;
-}
-
-.mi-grid::after {
-    content: '';
-    position: absolute;
     left: 0;
-    top: 50%;
     width: 100%;
-    height: 1px;
-    border-top: 1px dashed #e74c3c;
-    transform: translateY(-50%);
-    opacity: 0.8;
-}
-
-.mi-grid-diagonal-tl-br {
-    position: absolute;
-    width: 141.4%;
-    height: 1px;
-    top: 50%;
-    left: 50%;
-    transform-origin: left center;
-    transform: rotate(45deg) translateY(-50%);
-    border-top: 1px dashed #e74c3c;
-    opacity: 0.8;
-}
-
-.mi-grid-diagonal-tr-bl {
-    position: absolute;
-    width: 141.4%;
-    height: 1px;
-    top: 50%;
-    left: 50%;
-    transform-origin: left center;
-    transform: rotate(-45deg) translateY(-50%);
-    border-top: 1px dashed #e74c3c;
-    opacity: 0.8;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
 }
 
 .hanzi-canvas {

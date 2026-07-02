@@ -627,7 +627,7 @@ function setupWritingBoardEvents() {
 }
 
 function showTimestamp() {
-    const deployTime = '2026-06-12 15:30:00';
+    const deployTime = '2026-06-12 16:00:00';
     document.getElementById('timestamp').textContent = `部署版本: ${deployTime}`;
 }
 
